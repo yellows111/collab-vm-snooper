@@ -11,7 +11,12 @@ const options = {
 	showInvalid: true // Parse invalid websockets/hosts
 }
 Object.values(mirrors).forEach(type => (type.forEach(vmip => { //Not only is this disgusting, it's worse than you'd think
-const ws = new websocket("ws://"+vmip, "guacamole", {origin: "computernewb.com"});
+const wss = vmip.startsWith("!") ? "wss://" : "ws://";
+if (wss == "wss://") {
+vmip = vmip.split('!')[1];
+}
+const ws = new websocket(wss+vmip, "guacamole", {origin: "computernewb.com", headers: {"User-Agent": "Mozilla/5.0 (collab-vm-snooper; yellows111; x86_64)"} });
+//console.log(ws._req._header);
 ws.on('error', function(err) {
 msg = err.message;
 if (msg.startsWith("Unexpected server response") == 1) {
@@ -20,7 +25,7 @@ if (msg.startsWith("Unexpected server response") == 1) {
 	parse([vmip, "invalid", "EUNEXPECTEDRESPONSE", code]);
 } else {
 if (options.showOffline == false) {return}
-parse([vmip, "offline", err.code])
+parse([vmip, "offline", err.code, err.errno])
 }});
 ws.on('open', function() {
 	if (options.showOnline == false) {ws.close();return}
@@ -32,7 +37,7 @@ ws.on('open', function() {
 		return;
 		}
 		args = (gu.decodeResponse(smessage));
-		if (args[0] !== "list") {
+		if (args[0] != "list") {
 			return;
 		}
 		for (let i = 1; i < args.length; i += 3) {
@@ -43,5 +48,5 @@ ws.on('open', function() {
 })));
 function parse(i) {
 s = " | ";
-console.log(i[0]+s+i[1]+s+i[2]/*+s+i[3]*/)
+console.log(i[0]+s+i[1]+s+i[2]+s+i[3])
 }
