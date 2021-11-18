@@ -1,10 +1,6 @@
 const websocket = require('ws');
 const gu = require("./guacutils.js");
-const mirrors = {
-	mainvms:[], // put main vms here, use a ! prefix to denote WSS
-	uservms:[], // put current user-vm additionalNodes here
-	externalvms:[] // put any third party collab-vm instances (not on main or user) here
-}
+const mirrors = require("./mirrors.js");
 const options = {
 	showOnline: true, // Parse online VMs/hosts
 	showOffline: true, // Parse offline VMs/hosts
