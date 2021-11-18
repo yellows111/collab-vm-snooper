@@ -1,6 +1,6 @@
 {
   "name": "collab-vm-snooper",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Snoop a WebSocket address for online VMs running collab-vm-server.",
   "author": "yellows111",
   "license": "ISC",
