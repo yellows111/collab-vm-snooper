@@ -16,7 +16,6 @@ if (wss == "wss://") {
 vmip = vmip.split('!')[1];
 }
 const ws = new websocket(wss+vmip, "guacamole", {origin: "computernewb.com", headers: {"User-Agent": "Mozilla/5.0 (collab-vm-snooper; yellows111; x86_64)"} });
-//console.log(ws._req._header);
 ws.on('error', function(err) {
 msg = err.message;
 if (msg.startsWith("Unexpected server response") == 1) {
@@ -39,6 +38,9 @@ ws.on('open', function() {
 		args = (gu.decodeResponse(smessage));
 		if (args[0] != "list") {
 			return;
+		}
+		if (smessage == "4.list;") {
+			parse([vmip, "online", "This IP has no nodes.", ""]);
 		}
 		for (let i = 1; i < args.length; i += 3) {
 			parse([vmip, "online", args[i], args[i+1]]);
