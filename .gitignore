@@ -1,5 +1,5 @@
 #node.js
 node_modules/*
 
-#to prevent IP leakage!!!
+# to prevent IP leakage!!!
 mirrors.js
