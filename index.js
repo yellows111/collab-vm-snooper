@@ -6,9 +6,9 @@ const mirrors = {
 	externalvms:[] // put any third party collab-vm instances (not on main or user) here
 }
 const options = {
-	showOnline: true, // Output online VMs/hosts
-	showOffline: true, // Output offline VMs/hosts
-	showInvalid: true // Output invalid websockets/hosts
+	showOnline: true, // Parse online VMs/hosts
+	showOffline: true, // Parse offline VMs/hosts
+	showInvalid: true // Parse invalid websockets/hosts
 }
 Object.values(mirrors).forEach(type => (type.forEach(vmip => { //Not only is this disgusting, it's worse than you'd think
 const ws = new websocket("ws://"+vmip, "guacamole", {origin: "computernewb.com"});
@@ -17,10 +17,10 @@ msg = err.message;
 if (msg.startsWith("Unexpected server response") == 1) {
 	if (options.showInvalid == false) {return}
 	code = msg.split(": ")[1];
-	console.log([vmip, "invalid", "EUNEXPECTEDRESPONSE", code])
+	parse([vmip, "invalid", "EUNEXPECTEDRESPONSE", code]);
 } else {
 if (options.showOffline == false) {return}
-console.log([vmip, "offline", err.code])
+parse([vmip, "offline", err.code])
 }});
 ws.on('open', function() {
 	if (options.showOnline == false) {ws.close();return}
@@ -32,12 +32,16 @@ ws.on('open', function() {
 		return;
 		}
 		args = (gu.decodeResponse(smessage));
-		if (args[0] =! "list") {
+		if (args[0] !== "list") {
 			return;
 		}
 		for (let i = 1; i < args.length; i += 3) {
-			console.log([vmip, "online", args[i], args[i+1]]);
+			parse([vmip, "online", args[i], args[i+1]]);
 		}
 	});
 })
 })));
+function parse(i) {
+s = " | ";
+console.log(i[0]+s+i[1]+s+i[2]/*+s+i[3]*/)
+}
