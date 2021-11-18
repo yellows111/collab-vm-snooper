@@ -1,6 +1,12 @@
 const websocket = require('ws');
 const gu = require("./guacutils.js");
-const mirrors = require("./mirrors.js");
+var mirrors;
+try {
+	mirrors = require("./mirrors.js");
+} catch(e) {
+	console.error("You do not have a mirrors.js file containing CollabVM Host IPs.\nAn example of this can be found in the \"mirrors.default.js\" file.");
+	mirrors = require("./mirrors.default.js");
+}
 const options = {
 	showOnline: true, // Parse online VMs/hosts
 	showOffline: true, // Parse offline VMs/hosts
