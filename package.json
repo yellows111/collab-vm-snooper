@@ -1,9 +1,13 @@
 {
   "name": "collab-vm-snooper",
-  "version": "0.4.1",
+  "version": "0.4.1a",
   "description": "Snoop a WebSocket address for online VMs running collab-vm-server.",
   "author": "yellows111",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yellows111/collab-vm-snooper.git"
+  },
   "dependencies": {
     "ws": "^8.2.3"
   }
