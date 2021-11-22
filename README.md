@@ -5,9 +5,9 @@ It finds nodes on a CollabVM Server 1.x (currently up to 1.3.0)
 ## Requires:
 Node.js 10 (via dependancy on `ws`)
 
-NPM for downloading the one (1) dependancy this requires
+NPM for downloading the one (1) dependancy this requires (or tar+g(un)zip from downloading the raw package)
 
-An internet connection (Or if you LAN runs collab-vm-server that'll work too)
+An internet connection (Or if a part of your LAN runs collab-vm-server that'll work too)
 
 ## What else?
 Probably an `npm install` and putting entires in the `mirrors.js` file.
