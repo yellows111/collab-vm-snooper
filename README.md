@@ -1,6 +1,6 @@
 # collab-vm-snooper
 
-It finds nodes on a CollabVM Server 1.x (currently up to 1.3.0)
+Snoop a WebSocket address for online VMs running collab-vm-server. (1.x, currently up to the current test/1.3.0 branches, *may* change soon)
 
 ## Requires:
 Node.js 10 (via dependancy on `ws`)
