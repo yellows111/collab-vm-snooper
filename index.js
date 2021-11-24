@@ -10,7 +10,8 @@ try {
 const options = {
 	showOnline: true, // Parse online VMs/hosts
 	showOffline: true, // Parse offline VMs/hosts
-	showInvalid: true // Parse invalid websockets/hosts
+	showInvalid: true, // Parse invalid websockets/hosts
+	splitLessThan: true // Split at <'s for names to prevent long strings
 }
 Object.values(mirrors).forEach(type => (type.forEach(vmip => { //Not only is this disgusting, it's worse than you'd think
 const wss = vmip.startsWith("!") ? "wss://" : "ws://";
@@ -45,7 +46,8 @@ ws.on('open', function() {
 			parse([vmip, "online", "This IP has no nodes.", ""]);
 		}
 		for (let i = 1; i < args.length; i += 3) {
-			parse([vmip, "online", args[i], args[i+1]]);
+			const name = options.splitLessThan ? args[i+1].split('<')[0] : args[i+1];
+			parse([vmip, "online", args[i], name]);
 		}
 	});
 })
